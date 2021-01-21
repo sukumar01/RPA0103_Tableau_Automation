@@ -1,0 +1,264 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="upload"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:p="http://schemas.uipath.com/workflow/activities/ftp"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:ss="clr-namespace:System.Security;assembly=mscorlib"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="argInFTPUserName" Type="InArgument(x:String)" />
+    <x:Property Name="argInFTPPassword" Type="InArgument(ss:SecureString)" />
+    <x:Property Name="argInExecution_ID" Type="InArgument(x:String)" />
+    <x:Property Name="argInDBConnectionString" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>upload_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Database</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>UiPath.FTP</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Database</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.CV</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>UiPath.FTP</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Desciption: Upload the updated Tableau workbooks to Server. Create new sucess.txt file&#xA;&#xA;Technical details: &#xA;Read paths from config.&#xA;FTP activities to to updload and delete workbooks to WinSCP.&#xA;&#xA;&#xA;Dev Details: Created by Shivani Karla &#xA;Creatde Date : 7th August 2020" DisplayName="Upload WB to UNIX" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Create Success File&quot;]" />
+    <ui:WriteTextFile DisplayName="Write Success Text File" FileName="[in_Config(&quot;Local_WB_Folder&quot;).tostring+&quot;Success.txt&quot;]" sap2010:WorkflowViewState.IdRef="WriteTextFile_1" Text="Success" />
+    <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Success file created&quot;]" />
+    <p:WithFtpSession ClientCertificatePassword="{x:Null}" ClientCertificatePath="{x:Null}" ContinueOnError="False" DisplayName="With ftp session" Host="[in_Config(&quot;FTP_UNIX_Server&quot;).ToString]" sap2010:WorkflowViewState.IdRef="WithFtpSession_1" Password="[new System.Net.NetworkCredential(string.Empty, argInFTPPassword).Password]" Port="[cint(In_Config(&quot;FTP_UNIX_Port&quot;).ToString)]" UseSftp="True" Username="[argInFTPUserName]">
+      <p:WithFtpSession.Body>
+        <ActivityAction x:TypeArguments="p:IFtpSession">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="p:IFtpSession" Name="FtpSession" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="scg:IEnumerable(p:FtpObjectInfo)" Name="vFTPWBCollection" />
+            </Sequence.Variables>
+            <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[in_Config(&quot;Unix_UploadPath&quot;).ToString]" />
+            <p:UploadFiles ContinueOnError="False" Create="False" DisplayName="Upload files-1" sap2010:WorkflowViewState.IdRef="UploadFiles_1" LocalPath="[in_Config(&quot;Local_WB_Folder&quot;).ToString+ in_Config(&quot;LocalUpdateFolder&quot;).ToString]" Overwrite="True" Recursive="False" RemotePath="[in_Config(&quot;Unix_UploadPath&quot;).ToString]" />
+            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Log workflow- U1" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Log\Log.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_Step">
+                  <Literal x:TypeArguments="x:String">Upload Tableau dashboards to UNIX</Literal>
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_ExceptionType">
+                  <Literal x:TypeArguments="x:String">Informational</Literal>
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_ErrorMessage">
+                  <Literal x:TypeArguments="x:String">Tableau Dashboards have been successfully uploaded to UNIX</Literal>
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_KeyValue">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;Unix_UploadPath&quot;).ToString" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_IsException">
+                  <Literal x:TypeArguments="x:String">No</Literal>
+                </InArgument>
+                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+                  <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_Config" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_ExecutionID">[argInExecution_ID]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_DBConnectionString">[argInDBConnectionString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_ProgramID">
+                  <Literal x:TypeArguments="x:String" Value="" />
+                </InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <p:UploadFiles ContinueOnError="False" Create="False" DisplayName="Upload files-2" sap2010:WorkflowViewState.IdRef="UploadFiles_3" LocalPath="[in_Config(&quot;Local_WB_Folder&quot;).tostring+&quot;Success.txt&quot;]" Overwrite="True" Recursive="False" RemotePath="[in_Config(&quot;TouchFile_UnixPath&quot;).ToString]" />
+            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Log workflow- U2" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Log\Log.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_Step">
+                  <Literal x:TypeArguments="x:String">Upload Tableau dashboards to UNIX</Literal>
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_ExceptionType">
+                  <Literal x:TypeArguments="x:String">Informational</Literal>
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_ErrorMessage">
+                  <Literal x:TypeArguments="x:String">Touch file has been uploaded to UNIX after successful Tableau dashboard upload</Literal>
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_KeyValue">
+                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Config(&quot;TouchFile_UnixPath&quot;).ToString" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_IsException">
+                  <Literal x:TypeArguments="x:String">No</Literal>
+                </InArgument>
+                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">
+                  <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="in_Config" />
+                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_ExecutionID">[argInExecution_ID]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_DBConnectionString">[argInDBConnectionString]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_ProgramID">
+                  <Literal x:TypeArguments="x:String" Value="" />
+                </InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <p:EnumerateObjects ContinueOnError="False" DisplayName="Enumerate WB objects" Files="[vFTPWBCollection]" sap2010:WorkflowViewState.IdRef="EnumerateObjects_2" Recursive="False" RemotePath="[In_Config(&quot;TWB_UNIX_Path&quot;).ToString]" />
+            <ui:ForEach x:TypeArguments="p:FtpObjectInfo" CurrentIndex="{x:Null}" DisplayName="For Updated WB Each" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[vFTPWBCollection]">
+              <ui:ForEach.Body>
+                <ActivityAction x:TypeArguments="p:FtpObjectInfo">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="p:FtpObjectInfo" Name="item" />
+                  </ActivityAction.Argument>
+                  <p:Delete ContinueOnError="False" DisplayName="Delete Update WB" sap2010:WorkflowViewState.IdRef="Delete_2" RemotePath="[In_Config(&quot;TWB_UNIX_Path&quot;).ToString+&quot;/&quot;+item.Name]" />
+                </ActivityAction>
+              </ui:ForEach.Body>
+            </ui:ForEach>
+          </Sequence>
+        </ActivityAction>
+      </p:WithFtpSession.Body>
+    </p:WithFtpSession>
+    <ui:LogMessage DisplayName="Log Message" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;File uploaded&quot;]" />
+    <sads:DebugSymbol.Symbol>d3ZDOlxVc2Vyc1xzdWt1bWFyMVxEb2N1bWVudHNcVWlQYXRoXFJQQS1QbGF0eXB1cy1VaVBhdGhcUlBBLVBsYXR5cHVzLVVpUGF0aFxVcGxvYWRUYWJsZWF1RGFzaGJvYXJkX1AyXFVwbG9hZFdpblNDUC54YW1sPlYDrgEOAgEBVwVXmAECAVBYBVjVAQIBTFkFWZkBAgFJWgWrARgCAQWsAQWsAZIBAgECV3JXlQECAVJXY1dpAgFRWMkBWNIBAgFPWEZYkQECAU1ZclmWAQIBS1ljWWkCAUpabVp0AgFIWqwDWsADAgFGWtwCWpMDAgFEWokCWtYCAgFCWpkBWswBAgFAYAuoARYCAQasAXKsAY8BAgEErAFjrAFpAgEDZA1ksAECATxlDWXlAgIBNWYNgAElAgEmgQENgQHNAgIBIIIBDZwBJQIBEZ0BDZ0B/QECAQyeAQ2nARoCAQdkemStAQIBPmRrZHECAT1lrwJl4gICATplLGUzAgE5ZZoBZYACAgE2ek96YgIBM3ITcocBAgExaRNpYgIBMGwTbE4CAS9vE297AgEue1Z7bwIBLHgTeHsCASp1E3VDAgEpZrwBZsoBAgEofRN9QgIBJ4EBlAKBAcoCAgEkgQEsgQEzAgEjgQGaAYEB5QECASGWAU+WAWICAR6OAROOAYoBAgEchQEThQFiAgEbiAETiAFOAgEaiwETiwGPAQIBGZcBVpcBbwIBF5QBE5QBewIBFZEBE5EBQwIBFIIBvAGCAcoBAgETmQETmQFCAgESnQHJAZ0B+gECAQ+dATGdATgCAQ6dAWKdAXYCAQ2eAaoBngG+AQIBC6QBE6QB1gECAQikAYoBpAHTAQIBCqQBLaQBNAIBCQ==</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="LogMessage_2" sap:VirtualizedContainerService.HintSize="314,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WriteTextFile_1" sap:VirtualizedContainerService.HintSize="314,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_3" sap:VirtualizedContainerService.HintSize="314,91">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_1" sap:VirtualizedContainerService.HintSize="314,91" />
+      <sap2010:ViewStateData Id="UploadFiles_1" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="314,87">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="UploadFiles_3" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_3" sap:VirtualizedContainerService.HintSize="314,87">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="EnumerateObjects_2" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Delete_2" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="ForEach`1_2" sap:VirtualizedContainerService.HintSize="314,193">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="336,888">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WithFtpSession_1" sap:VirtualizedContainerService.HintSize="314,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_4" sap:VirtualizedContainerService.HintSize="314,51">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="336,756">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="upload_1" sap:VirtualizedContainerService.HintSize="376,836" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
